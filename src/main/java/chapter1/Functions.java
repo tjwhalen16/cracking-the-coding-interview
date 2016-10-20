@@ -161,4 +161,83 @@ public class Functions {
 		answer.append("" + currentChar + currentCount); //can make this a function since it's repeated
 		return answer.length() < string.length() ? answer.toString() : string;
 	}
+	
+	//1.7
+	public static int[][] rotateMatrix(int[][] matrix) {
+		int len = matrix.length;
+		int[][] answer = new int[len][len];
+		
+		for (int i = 0; i < len; i++) {
+			columnsToRows(matrix, answer, i);
+		}
+		return answer;
+	}
+	
+	private static void columnsToRows(int[][] from, int[][] to, int col) {
+		int len = from.length;
+		int row = len - col - 1;
+		
+		for (int i = 0; i < len; i++) {
+			to[row][i] = from[i][col];
+		}
+	}
+	
+	//1.8
+	public static void zeroMatrix(int[][] matrix) {
+		int rowLen = matrix.length;
+		int colLen = matrix[0].length;
+		boolean[] rowsWithZero = new boolean[rowLen];
+		boolean[] colsWithZero = new boolean[colLen];
+		
+		//find zeros
+		for (int m = 0; m < rowLen; m++) {
+			for (int n = 0; n < colLen; n++) {
+				if (matrix[m][n] == 0) {
+					rowsWithZero[m] = true;
+					colsWithZero[n] = true;
+				}
+			}
+		}
+		
+		//zero out rows
+		for (int i = 0; i < rowLen; i++) {
+			if (rowsWithZero[i]) {
+				zeroRow(matrix, i);
+			}
+		}
+		
+		//zero out columns
+		for (int i = 0; i < colLen; i++) {
+			if (colsWithZero[i]) {
+				zeroCol(matrix, i);
+			}
+		}
+	}
+	
+	private static void zeroRow(int[][] matrix, int row) {
+		for (int i = 0; i < matrix[row].length; i++) {
+			matrix[row][i] = 0;
+		}
+	}
+	private static void zeroCol(int[][] matrix, int col) {
+		for (int i = 0; i < matrix[col].length; i++) {
+			matrix[i][col] = 0;
+		}
+	}
+	
+	
+	//1.9
+	public static boolean isRotation(String s1, String s2) {
+		
+		if (s1.length() == s2.length()) {
+			String s1s1 = s1 + s1;
+			return isSubstring(s1s1, s2);
+		}
+		
+		return false;
+	}
+	
+	private static boolean isSubstring(String s1, String s2) {
+		return s1.contains(s2);
+	}
 }
