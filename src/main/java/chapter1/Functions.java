@@ -1,7 +1,11 @@
 package chapter1;
 
-public class Functions {
+public final class Functions {
 
+	private Functions() {
+		
+	}
+	
 	//1.1
 	public static boolean isUnique(String string) {
 		
